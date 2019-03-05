@@ -1,4 +1,4 @@
-package zoo_keeper1;
+package zoo_keeper2;
 
 public class Mammal {
 	int energy;
@@ -15,5 +15,4 @@ public class Mammal {
 	public void setEnergy(int energy) {
 		this.energy = energy;
 	}
-	
 }
