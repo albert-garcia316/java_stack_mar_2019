@@ -1,17 +1,13 @@
-package com.albertgarcia.firstproject;
+package com.albertgarcia.routing;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-
 @SpringBootApplication
-
-
-public class FirstProjectApplication {
+public class RoutingApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FirstProjectApplication.class, args);
+		SpringApplication.run(RoutingApplication.class, args);
 	}
-
 
 }

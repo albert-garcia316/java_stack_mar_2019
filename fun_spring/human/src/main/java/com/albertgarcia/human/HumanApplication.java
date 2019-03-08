@@ -1,17 +1,13 @@
-package com.albertgarcia.firstproject;
+package com.albertgarcia.human;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-
 @SpringBootApplication
-
-
-public class FirstProjectApplication {
+public class HumanApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FirstProjectApplication.class, args);
+		SpringApplication.run(HumanApplication.class, args);
 	}
-
 
 }
