@@ -32,17 +32,8 @@ public class BookService {
             return null;
         }
     }
-    public Book updateBook(Long id, String title, String desc, String lang,  int numOfPages) {
-    	Book book = this.findBook(id);
-    	if(book == null) {
-    		return null;
-    	}
-    	book.setTitle(title);
-    	book.setDescription(desc);
-    	book.setLanguage(lang);
-    	book.setNumberOfPages(numOfPages);
-    	
-    	return bookRepository.save(book);
+    public Book updateBook(Book book) {
+		return bookRepository.save(book);
     }
     public void deleteBook(long id) {
     	Book book = this.findBook(id);
@@ -51,6 +42,5 @@ public class BookService {
     	} else {
     		bookRepository.delete(book);
     	}
-    	
     }
 }
