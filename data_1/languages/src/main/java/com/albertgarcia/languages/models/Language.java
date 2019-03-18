@@ -27,7 +27,7 @@ public class Language {
     @Size(min = 2, max = 20)
     private String creator;
     
-    @NotNull
+    @Size(min = 1, message="Cannot be left blank")
     private String version;
 
     @Column(updatable=false)
