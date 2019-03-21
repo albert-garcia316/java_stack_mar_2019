@@ -94,4 +94,13 @@ public class Basics {
         x[x.length - 1] = 0;
         System.out.println(x);
     }
+    public void capitalCount(String str){
+        int count = 0;
+        for(int i = 0; i < str.length(); i++){
+            if(Character.isUpperCase(str.charAt(i))){
+                count ++;
+            }
+        }
+        System.out.println(count);
+    }
 }
