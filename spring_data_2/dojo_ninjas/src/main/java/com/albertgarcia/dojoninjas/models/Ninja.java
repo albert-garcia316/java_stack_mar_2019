@@ -14,6 +14,8 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name="ninjas")
 public class Ninja {
@@ -24,7 +26,9 @@ public class Ninja {
     private String lastName;
     private int age;
     @Column(updatable=false)
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date createdAt;
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date updatedAt;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="dojo_id")

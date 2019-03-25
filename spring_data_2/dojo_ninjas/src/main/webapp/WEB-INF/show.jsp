@@ -11,6 +11,24 @@
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 	</head>
 	<body>
-		<h1><c:out value="${dojo.name }"></c:out>'s Ninjas</h1>
+		<h1><c:out value="${dojo.name }"></c:out> Location's Ninjas</h1>
+		<table>
+			<thead>
+				<tr>
+					<th>First Name:</th>
+					<th>Last Name:</th>
+					<th>Age:</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${ninjas }" var="ninja">
+					<tr>
+						<td><c:out value="${ninja.firstName }"></c:out></td>
+						<td><c:out value="${ninja.lastName }"></c:out></td>
+						<td><c:out value="${ninja.age }"></c:out></td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
 	</body>
 </html>

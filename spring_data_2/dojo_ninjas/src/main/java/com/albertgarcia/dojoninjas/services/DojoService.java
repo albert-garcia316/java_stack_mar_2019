@@ -1,6 +1,8 @@
 package com.albertgarcia.dojoninjas.services;
 
+import java.util.List;
 import java.util.Optional;
+
 
 import org.springframework.stereotype.Service;
 
@@ -15,11 +17,21 @@ public class DojoService {
 		this.dR = dR;
 	}
 
+	
 	public Dojo findDojo(Long id) {
 		Optional<Dojo> optDojo = dR.findById(id);
 		if(optDojo.isPresent()) {
 			return optDojo.get();
 		}
 		return null;
+	}
+
+	public Dojo createDojo(Dojo dojo) {
+		return dR.save(dojo);
+	}
+
+
+	public List<Dojo> allDojos() {
+		return dR.findAll();
 	}
 }
