@@ -1,0 +1,61 @@
+package com.albertgarcia.categoriesproducts.controllers;
+
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import com.albertgarcia.categoriesproducts.models.Category;
+import com.albertgarcia.categoriesproducts.models.CategoryProduct;
+import com.albertgarcia.categoriesproducts.models.Product;
+import com.albertgarcia.categoriesproducts.services.CategoryProductService;
+
+@Controller
+public class CategoryController {
+	private final CategoryProductService catProService;
+	
+	
+	public CategoryController(CategoryProductService catProService) {
+		this.catProService = catProService;
+	}
+	
+	
+	@GetMapping("/categories/new")
+	public String newProduct(@ModelAttribute(value="category") Category category) {
+		return "category.jsp";
+	}
+	@PostMapping("/categories")
+	public String createCategory(Model model, @Valid @ModelAttribute(value="category") Category category, BindingResult result) {
+		if(result.hasErrors()) {
+			return "category.jsp";
+		}
+		Category c = catProService.createCategory(category);
+		model.addAttribute("category", c);
+		return "redirect:/categories/" + c.getId();
+	}
+	@GetMapping("/categories/{id}")
+	public String findCategory(@PathVariable(value="id") Long id, Model model, @ModelAttribute(value="catPro") CategoryProduct catPro) {
+		Category c = catProService.findCategory(id);
+		List<Product> myProducts = catProService.findMyProducts(c);
+		List<Product> products = catProService.findAllOtherProducts(c);
+		model.addAttribute("category", c);
+		model.addAttribute("myProducts", myProducts);
+		model.addAttribute("otherProducts", products);
+		return "show_category.jsp";
+	}
+	@PostMapping("/categories/{id}")
+	public String addProduct(@PathVariable(value="id") Long id, Model model, @Valid @ModelAttribute(value="catPro") CategoryProduct catPro, BindingResult result) {
+		if(result.hasErrors()) {
+			return "show_category.jsp";
+		}
+		Category c = catProService.findCategory(id);
+		return "redirect:/categories/" + c.getId();
+	}
+}
