@@ -5,9 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+
 import org.springframework.stereotype.Service;
 
 import com.albertgarcia.categoriesproducts.models.Category;
+import com.albertgarcia.categoriesproducts.models.CategoryProduct;
 import com.albertgarcia.categoriesproducts.models.Product;
 import com.albertgarcia.categoriesproducts.repositories.CategoryProductRepository;
 import com.albertgarcia.categoriesproducts.repositories.CategoryRepository;
@@ -23,6 +25,8 @@ public class CategoryProductService {
 		this.pR = pR;
 		this.catProRepo = catProRepo;
 	}
+	
+//	categories
 	public Category createCategory(Category category) {
 		return cR.save(category);
 	}
@@ -33,19 +37,60 @@ public class CategoryProductService {
 		}
 		return null;
 	}
+	public List<Category> findAllCategories() {
+		return cR.findAll();
+	}
+	
+
+
+	
+//	Products
+	public Product createProduct(Product product) {
+		return pR.save(product);
+	}
+	public Product findProduct(Long id) {
+		Optional<Product> opt = pR.findById(id);
+		if(opt.isPresent()) {
+			return opt.get();
+		}
+		return null;
+	}
 	public List<Product> findAllProducts() {
 		return pR.findAll();
 	}
-	public List<Product> findMyProducts(Category c) {
-		return catProRepo.findByCategory(c);
+
+	public void addCategoryToProduct(CategoryProduct catPro) {
+		catProRepo.save(catPro);
+		
 	}
-	public List<Product> findAllOtherProducts(Category c) {
-		List<Product> myProducts = this.findMyProducts(c);
-		List<Long> myIds = new ArrayList<>();
-		for(int i = 0; i < myProducts.size(); i++) {
-			myIds.add(myProducts.get(i).getId());
+
+	public List<Category> findAllOtherCategories(Product p) {
+		List<Category> myCat = p.getCategories();
+		if(myCat.size() == 0) {
+			return cR.findAll();
+		} else {
+			List<Long> myCatIds = new ArrayList<>();
+			for(Category c : myCat) {
+				myCatIds.add(c.getId());
+			}
+			return cR.findByIdNotIn(myCatIds);
 		}
-		return pR.findAllByIdNotIn(myIds);
 	}
-	
+
+	public void addProductToCategory(CategoryProduct catPro) {
+		catProRepo.save(catPro);
+	}
+
+	public List<Product> findAllOtherProducts(Category c) {
+		List<Product> myPro = c.getProducts();
+		if(myPro.size() == 0) {
+			return pR.findAll();
+		} else {
+			List<Long> myProIds = new ArrayList<>();
+			for(Product p : myPro) {
+				myProIds.add(p.getId());
+			}
+			return pR.findByIdNotIn(myProIds);
+		}
+	}
 }

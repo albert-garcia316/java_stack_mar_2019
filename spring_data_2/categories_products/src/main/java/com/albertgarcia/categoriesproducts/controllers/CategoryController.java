@@ -43,19 +43,14 @@ public class CategoryController {
 	@GetMapping("/categories/{id}")
 	public String findCategory(@PathVariable(value="id") Long id, Model model, @ModelAttribute(value="catPro") CategoryProduct catPro) {
 		Category c = catProService.findCategory(id);
-		List<Product> myProducts = catProService.findMyProducts(c);
-		List<Product> products = catProService.findAllOtherProducts(c);
 		model.addAttribute("category", c);
-		model.addAttribute("myProducts", myProducts);
-		model.addAttribute("otherProducts", products);
+		model.addAttribute("allOtherProducts", catProService.findAllOtherProducts(c));
 		return "show_category.jsp";
 	}
-	@PostMapping("/categories/{id}")
-	public String addProduct(@PathVariable(value="id") Long id, Model model, @Valid @ModelAttribute(value="catPro") CategoryProduct catPro, BindingResult result) {
-		if(result.hasErrors()) {
-			return "show_category.jsp";
-		}
-		Category c = catProService.findCategory(id);
-		return "redirect:/categories/" + c.getId();
+	@PostMapping("/addProduct")
+	public String addProductToCategory(Model model, @ModelAttribute(value="catPro") CategoryProduct catPro) {
+
+		catProService.addProductToCategory(catPro);
+		return "redirect:/categories/" + catPro.getCategory().getId();
 	}
 }

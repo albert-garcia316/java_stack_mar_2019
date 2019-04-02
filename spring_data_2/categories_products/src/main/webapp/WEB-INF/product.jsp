@@ -12,5 +12,23 @@
 	</head>
 	<body>
 		<h1>New Product</h1>
+		<form:form action="/products" method="POST" modelAttribute="product">
+			<p>
+				<form:label path="name">Name:</form:label>
+				<form:errors path="name"></form:errors>
+				<form:input path="name" type="text" />
+			</p>
+			<p>
+				<form:label path="description">Description:</form:label>
+				<form:errors path="description"></form:errors>
+				<form:input path="description" type="text" />
+			</p>
+			<p>
+				<form:label path="price">Price:</form:label>
+				<form:errors path="price"></form:errors>
+				<form:input path="price" type="number" />
+			</p>
+			<button type="submit">Create</button>
+		</form:form>
 	</body>
 </html>

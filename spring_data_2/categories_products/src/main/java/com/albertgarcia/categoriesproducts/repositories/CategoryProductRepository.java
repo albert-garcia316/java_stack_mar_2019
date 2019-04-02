@@ -11,5 +11,4 @@ import com.albertgarcia.categoriesproducts.models.Product;
 public interface CategoryProductRepository extends CrudRepository<CategoryProduct, Long> {
 	List<CategoryProduct> findAll();
 
-	List<Product> findByCategory(Category c);
 }
